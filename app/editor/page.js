@@ -124,7 +124,9 @@ export default function Editor() {
                             {(resumeData.contact.email || resumeData.contact.phone) && (
                                 <div className="text-sm text-gray-600">
                                     {resumeData.contact.email && <div>{resumeData.contact.email}</div>}
+                                    }
                                     {resumeData.contact.phone && <div>{resumeData.contact.phone}</div>}
+                                    }
                                 </div>
                             )}
 
