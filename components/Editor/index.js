@@ -6,7 +6,6 @@ import SingleEditor from './SingleEditor';
 import MultiEditor from './MultiEditor';
 import { useDispatch } from 'react-redux';
 import { saveResume } from '@/store/slices/resumeSlice';
-import { useEffect } from 'react';
 
 const Editor = ({ tab }) => {
     const { multiple } = ResumeFields[tab];
@@ -16,11 +15,6 @@ const Editor = ({ tab }) => {
         e?.preventDefault();
         dispatch(saveResume());
     };
-
-    useEffect(() => {
-        const interval = setInterval(save, 10000);
-        return () => clearInterval(interval);
-    }, []);
 
     return (
         <>
