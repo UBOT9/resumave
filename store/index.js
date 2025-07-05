@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import resumeSlice from './slices/resumeSlice';
 
 const store = configureStore({
-    devTools: true,
+    devTools: process.env.NODE_ENV !== 'production',
     reducer: {
         resume: resumeSlice,
     },

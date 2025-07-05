@@ -4,15 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import Resume from './pdf';
 import { useSelector } from 'react-redux';
 import { CgSpinner } from 'react-icons/cg';
-
-// import 'react-pdf/dist/Page/AnnotationLayer.css';
-// import 'react-pdf/dist/Page/TextLayer.css';
-
 import { usePDF } from '@react-pdf/renderer';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { FaDownload, FaEye } from 'react-icons/fa6';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.js', import.meta.url).toString();
+// Set up PDF.js worker
+if (typeof window !== 'undefined') {
+    pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.js', import.meta.url).toString();
+}
 
 const Loader = () => (
     <div className="flex min-h-96 w-full items-center justify-center">
@@ -21,28 +20,42 @@ const Loader = () => (
 );
 
 const preview = url => {
-    window.open(
-        url,
-        'Resume Preview',
-        `toolbar=no, location=no, menubar=no, scrollbars=no, status=no, titlebar=no, resizable=no, width=600, height=800, left=${window.innerWidth / 2 - 300}, top=100`,
-    );
+    if (typeof window !== 'undefined') {
+        window.open(
+            url,
+            'Resume Preview',
+            `toolbar=no, location=no, menubar=no, scrollbars=no, status=no, titlebar=no, resizable=no, width=600, height=800, left=${window.innerWidth / 2 - 300}, top=100`,
+        );
+    }
 };
 
 const Preview = () => {
+    const [mounted, setMounted] = useState(false);
     const parentRef = useRef(null);
     const resumeData = useSelector(state => state.resume);
     const document = <Resume data={resumeData} />;
     const [instance, updateInstance] = usePDF({ document });
 
     useEffect(() => {
-        if (resumeData.saved) updateInstance(document);
-    }, [resumeData.saved]);
+        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (mounted && resumeData.saved) {
+            updateInstance(document);
+        }
+    }, [resumeData.saved, mounted]);
+
+    if (!mounted) {
+        return <Loader />;
+    }
 
     return (
         <div ref={parentRef} className="relative w-full md:max-w-[24rem] 2xl:max-w-[28rem]">
-            {instance.loading ?
+            {instance.loading ? (
                 <Loader />
-            :   <Document loading={<Loader />} file={instance.url}>
+            ) : (
+                <Document loading={<Loader />} file={instance.url}>
                     <Page
                         pageNumber={1}
                         renderTextLayer={false}
@@ -51,7 +64,7 @@ const Preview = () => {
                         width={parentRef.current?.clientWidth}
                     />
                 </Document>
-            }
+            )}
 
             {!instance.loading && (
                 <div className="mt-4 flex justify-around">
@@ -72,22 +85,5 @@ const Preview = () => {
         </div>
     );
 };
-
-// const Preview = () => {
-//     const resumeData = useSelector(state => state.resume);
-//     const [data, setData] = useState(resumeData);
-
-//     useEffect(() => {
-//         if (resumeData.saved) setData(resumeData);
-//     }, [resumeData.saved]);
-
-//     return (
-//         <div className="hidden h-[40rem] w-[28rem] md:block">
-//             <PDFViewer className="h-full w-full" showToolbar={true}>
-//                 <Resume data={data} />
-//             </PDFViewer>
-//         </div>
-//     );
-// };
 
 export default Preview;
