@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        swcLoader: '@next/swc-wasm-nodejs',
-    },
+    swcMinify: false, // Use Babel for minification as fallback
 };
 
 export default nextConfig;
