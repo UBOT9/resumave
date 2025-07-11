@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
-        forceSwcTransforms: false,
-    },
-    swcMinify: false,
-    compiler: {
-        removeConsole: false,
+        swcLoader: '@next/swc-wasm-nodejs',
     },
 };
 
