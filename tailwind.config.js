@@ -1,20 +1,19 @@
 /** @type {import('tailwindcss').Config} */
-
-const colors = require('tailwindcss/colors');
-
-module.exports = {
-    content: [
-        './pages/**/*.{js,ts,jsx,tsx,mdx}',
-        './components/**/*.{js,ts,jsx,tsx,mdx}',
-        './app/**/*.{js,ts,jsx,tsx,mdx}',
-    ],
-    darkMode: 'class',
-    theme: {
-        extend: {
-            colors: {
-                primary: { ...colors.teal },
-                gray: { ...colors.zinc },
-            },
-        },
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+        }
+      }
     },
-};
+  },
+  plugins: [],
+}

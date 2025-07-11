@@ -2,23 +2,27 @@
   "name": "resumave",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "NEXT_FORCE_SWCPACK=1 next dev",
-    "build": "NEXT_FORCE_SWCPACK=1 next build",
-    "start": "NEXT_FORCE_SWCPACK=1 next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
-    "next": "14.2.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.0.1",
     "react-redux": "^9.1.1",
-    "tailwindcss": "^3.4.1"
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
-    "@next/swc-wasm-nodejs": "^15.3.5",
-    "postcss": "^8"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.10",
+    "vite": "^5.4.1"
   }
 }
