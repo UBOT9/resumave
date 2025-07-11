@@ -4,16 +4,12 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: false,
   },
-  webpack: (config, { dev, isServer }) => {
-    // Force disable native SWC loading
-    if (dev && !isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@next/swc-linux-x64-gnu': false,
-        '@next/swc-linux-x64-musl': false,
-      };
-    }
-    return config;
+  // Completely disable SWC
+  compiler: {
+    // Disable all SWC features
+    removeConsole: false,
+    reactRemoveProperties: false,
+    styledComponents: false,
   },
 };
 
