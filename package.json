@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "NEXT_FORCE_SWCPACK=1 next dev",
+    "build": "NEXT_FORCE_SWCPACK=1 next build",
+    "start": "NEXT_FORCE_SWCPACK=1 next start",
     "lint": "next lint"
   },
   "dependencies": {
